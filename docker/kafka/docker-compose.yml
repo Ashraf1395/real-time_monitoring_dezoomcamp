@@ -23,7 +23,7 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: ${KAFKA_TRANSACTION_STATE_LOG_MIN_ISR}
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: ${KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR}
     env_file:
-      - ./docker/env
+      - .env
     ports:
       - '${KAFKA_BROKER_PORT}:9092'
   
@@ -40,7 +40,7 @@ services:
       SCHEMA_REGISTRY_HOST_NAME: ${SCHEMA_REGISTRY_HOST_NAME}
       SCHEMA_REGISTRY_LISTENERS: ${SCHEMA_REGISTRY_LISTENERS} #(default: http://0.0.0.0:8081)
     env_file:
-      - ./docker/env
+      - .env
     ports:
       - "${SCHEMA_REGISTRY_PORT}:8081"
   
@@ -52,7 +52,7 @@ services:
       ZOOKEEPER_CLIENT_PORT: ${ZOOKEEPER_CLIENT_PORT}
       ZOOKEEPER_TICK_TIME: ${ZOOKEEPER_TICK_TIME}
     env_file:
-      - ./docker/env
+      - .env
     ports:
       - '${ZOOKEEPER_CLIENT_PORT}:2181'
   
@@ -74,7 +74,7 @@ services:
       CONFLUENT_METRICS_TOPIC_REPLICATION: ${CONFLUENT_METRICS_TOPIC_REPLICATION}
       PORT: ${CONTROL_CENTER_PORT}
     env_file:
-      - ./docker/env
+      - .env
     ports:
       - "${CONTROL_CENTER_PORT}:9021"
 
@@ -92,6 +92,6 @@ services:
       KAFKA_REST_HOST_NAME: ${KAFKA_REST_HOST_NAME}
       KAFKA_REST_LISTENERS: ${KAFKA_REST_LISTENERS}
     env_file:
-      - ./docker/env
+      - .env
     ports:
       - "${KAFKA_REST_PORT}:8082"

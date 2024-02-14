@@ -8,6 +8,6 @@ services:
     image: metabase/metabase
     container_name: ${PROJECT_NAME}-metabase
     env_file:
-      - ./docker/env
+      - .env
     ports:
       - ${METABASE_PORT}:3000

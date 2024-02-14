@@ -17,7 +17,7 @@ services:
     volumes:
       - shared-workspace:/opt/workspace
     env_file:
-      - ./docker/env
+      - .env
     ports:
       - ${JUPYTERLAB_PORT}:8888
 
@@ -29,7 +29,7 @@ services:
     environment:
       SPARK_LOCAL_IP: ${SPARK_LOCAL_IP}
     env_file:
-      - ./docker/env
+      - .env
     ports:
       - ${SPARK_MASTER_PORT_1}:8080
       - ${SPARK_MASTER_PORT_2}:7077
@@ -45,7 +45,7 @@ services:
       - SPARK_WORKER_CORES=${SPARK_WORKER_CORES}
       - SPARK_WORKER_MEMORY=${SPARK_WORKER_MEMORY}
     env_file:
-      - ./docker/env
+      - .env
     ports:
       - ${SPARK_WORKER_1_PORT}:8081
     
@@ -61,7 +61,7 @@ services:
       - SPARK_WORKER_CORES=${SPARK_WORKER_CORES}
       - SPARK_WORKER_MEMORY=${SPARK_WORKER_MEMORY}
     env_file:
-      - ./docker/env
+      - .env
     ports:
       - ${SPARK_WORKER_2_PORT}:8081
     
