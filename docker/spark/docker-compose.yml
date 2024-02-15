@@ -19,7 +19,7 @@ services:
     env_file:
       - .env
     ports:
-      - ${JUPYTERLAB_PORT}:8888
+      - 8888:8888
 
   spark-master:
     image: spark-master
@@ -31,8 +31,8 @@ services:
     env_file:
       - .env
     ports:
-      - ${SPARK_MASTER_PORT_1}:8080
-      - ${SPARK_MASTER_PORT_2}:7077
+      - 8080:8080
+      - 7077:7077
     
   spark-worker-1:
     image: spark-worker
@@ -42,12 +42,12 @@ services:
     volumes:
       - shared-workspace:/opt/workspace
     environment:
-      - SPARK_WORKER_CORES=${SPARK_WORKER_CORES}
-      - SPARK_WORKER_MEMORY=${SPARK_WORKER_MEMORY}
+      - SPARK_WORKER_CORES=1
+      - SPARK_WORKER_MEMORY=4g
     env_file:
       - .env
     ports:
-      - ${SPARK_WORKER_1_PORT}:8081
+      - 8083:8081
     
   
   spark-worker-2:
@@ -58,10 +58,10 @@ services:
     volumes:
       - shared-workspace:/opt/workspace
     environment:
-      - SPARK_WORKER_CORES=${SPARK_WORKER_CORES}
-      - SPARK_WORKER_MEMORY=${SPARK_WORKER_MEMORY}
+      - SPARK_WORKER_CORES=1
+      - SPARK_WORKER_MEMORY=4g
     env_file:
       - .env
     ports:
-      - ${SPARK_WORKER_2_PORT}:8081
+      - 8084:8081
     

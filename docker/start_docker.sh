@@ -1,3 +1,8 @@
+PROJECT_NAME=ashraf-magic
+
+docker network create ${PROJECT_NAME}-network
+docker volume create --name=hadoop-distributed-file-system
+
 
 echo "Starting Postgres related containers"
 docker-compose -f ./docker/postgres/docker-compose.yml up -d

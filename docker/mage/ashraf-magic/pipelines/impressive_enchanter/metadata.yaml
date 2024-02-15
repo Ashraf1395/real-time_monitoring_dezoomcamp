@@ -1,0 +1,149 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - export_to_postgres
+  - export_to_gcs_1
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: api_data_load
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_loader
+  upstream_blocks: []
+  uuid: api_data_load
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    data_provider: postgres
+    data_provider_profile: default
+    data_provider_schema: de_data
+    data_provider_table: time_spent
+    dbt: {}
+    disable_query_preprocessing: false
+    export_write_policy: replace
+    limit: 1000
+    use_raw_sql: false
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: export_to_postgres
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - api_data_load
+  uuid: export_to_postgres
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    data_provider: postgres
+    data_provider_profile: default
+    data_provider_schema: de_data
+    export_write_policy: replace
+  downstream_blocks:
+  - export_to_postgres_2
+  - export_to_gcs_2
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: api_data_load_2
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_loader
+  upstream_blocks: []
+  uuid: api_data_load_2
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    data_provider: postgres
+    data_provider_profile: default
+    data_provider_schema: de_data
+    data_provider_table: scores
+    dbt: {}
+    disable_query_preprocessing: false
+    export_write_policy: append
+    limit: 1000
+    use_raw_sql: false
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: export_to_postgres_2
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - api_data_load_2
+  uuid: export_to_postgres_2
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    data_provider: postgres
+    data_provider_profile: default
+    data_provider_schema: de_data
+    export_write_policy: append
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: export_to_gcs_1
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - api_data_load
+  uuid: export_to_gcs_1
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: export_to_gcs_2
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - api_data_load_2
+  uuid: export_to_gcs_2
+cache_block_output_in_memory: false
+callbacks: []
+concurrency_config: {}
+conditionals: []
+created_at: '2024-02-15 09:26:33.657642+00:00'
+data_integration: null
+description: null
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: impressive enchanter
+notification_config: {}
+remote_variables_dir: null
+retry_config: {}
+run_pipeline_in_one_process: false
+settings:
+  triggers: null
+spark_config: {}
+tags: []
+type: python
+uuid: impressive_enchanter
+variables_dir: /home/src/mage_data/ashraf-magic
+widgets: []

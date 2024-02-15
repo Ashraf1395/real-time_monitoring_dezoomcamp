@@ -5,7 +5,7 @@ networks:
     external: true
 services:
   mageai:
-    image: mageai/mageai:latest
+    image: mage-ashraf
     container_name: ${PROJECT_NAME}-mageai
     command: mage start ${PROJECT_NAME}
     env_file:
@@ -22,7 +22,7 @@ services:
       - ${MAGE_PORT}:6789
     volumes:
       - .:/home/src/
-      - ~/Documents/secrets/personal-gcp.json:/home/src/personal-gcp.json
+      
     restart: on-failure:5
 
 
