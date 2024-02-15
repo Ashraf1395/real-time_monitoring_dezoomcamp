@@ -10,3 +10,7 @@ triggers:
   start_time: 2024-02-15 16:28:00
   status: active
   variables: {}
+
+
+
+#curl -X POST http://127.0.0.1:6789/api/pipeline_schedules/4/pipeline_runs/515ea1cd64dc4cea8ec0ab0226dcd356 
