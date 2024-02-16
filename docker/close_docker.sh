@@ -1,24 +1,15 @@
+# Function to stop containers
+stop_containers() {
+    echo "Closing $1 related containers"
+    docker-compose -f "$2" down
+    echo
+}
 
-echo "Closing Postgres related containers"
-docker-compose -f ./docker/postgres/docker-compose.yml down
-echo "  "
+# Stop containers
+stop_containers "Postgres" "./docker/postgres/docker-compose.yml"
+stop_containers "Mage" "./docker/mage/docker-compose.yml"
+stop_containers "Metabase" "./docker/metabase/docker-compose.yml"
+stop_containers "Kafka" "./docker/kafka/docker-compose.yml"
+stop_containers "Spark" "./docker/spark/docker-compose.yml"
 
-echo "Closing Mage container"
-docker-compose -f ./docker/mage/docker-compose.yml down
-echo "  "
-
-echo "Closing Metabase container"
-docker-compose -f ./docker/metabase/docker-compose.yml down
-echo "  "
-
-echo "Closing Kafka related containers"
-docker-compose -f ./docker/kafka/docker-compose.yml down
-echo "  "
-
-echo "Closing Spark related containers"
-chmod +x ./docker/spark/build.sh
-echo "  "
-docker-compose -f ./docker/spark/docker-compose.yml down
-echo "  "
-
-echo "Closed all containers. "
+echo "Closed all containers."

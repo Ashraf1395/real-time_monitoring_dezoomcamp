@@ -1,31 +1,24 @@
-PROJECT_NAME=ashraf-magic
-
-docker network create ${PROJECT_NAME}-network
+# Create Docker network and volume
+docker network create "${PROJECT_NAME}-network"
 docker volume create --name=hadoop-distributed-file-system
 
+# Start containers
+start_containers() {
+    echo "Starting $1 related containers"
+    docker-compose -f "$2" up -d
+    echo
+}
 
-echo "Starting Postgres related containers"
-docker-compose -f ./docker/postgres/docker-compose.yml up -d
-echo "  "
-
-echo "Starting Mage container"
-docker-compose -f ./docker/mage/docker-compose.yml up -d
-echo "  "
-
-echo "Starting Metabase container"
-docker-compose -f ./docker/metabase/docker-compose.yml up -d
-echo "  "
-
-echo "Starting Kafka related containers"
-docker-compose -f ./docker/kafka/docker-compose.yml up -d
-echo "  "
+start_containers "Postgres" "./docker/postgres/docker-compose.yml"
+start_containers "Mage" "./docker/mage/docker-compose.yml"
+start_containers "Metabase" "./docker/metabase/docker-compose.yml"
+start_containers "Kafka" "./docker/kafka/docker-compose.yml"
 
 echo "Starting Spark related containers"
 chmod +x ./docker/spark/build.sh
 ./docker/spark/build.sh
-echo "  "
+echo
 docker-compose -f ./docker/spark/docker-compose.yml up -d
-echo "  "
+echo
 
-echo "Started all containers you can check their ps here:"
-docker ps
+echo "Started all containers. You can check their status with 'docker ps'."
