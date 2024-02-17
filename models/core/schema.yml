@@ -1,122 +1,122 @@
 - name: dim_module_dbt_model
-    description:
-      Taxi trips corresponding to both service zones (Green and yellow).
-      The table contains records where both pickup and dropoff locations are valid and known zones. 
-      Each record corresponds to a trip uniquely identified by tripid. 
-    columns:
-      - name: email
-        data_type: string
-        description: "unique identifier conformed by the combination of vendorid and pickyp time"
+  description: >
+    Taxi trips corresponding to both service zones (Green and yellow).
+    The table contains records where both pickup and dropoff locations are valid and known zones. 
+    Each record corresponds to a trip uniquely identified by tripid.
+  columns:
+    - name: email
+      data_type: string
+      description: >
+        Unique identifier conformed by the combination of vendorid and pickyp time
 
-      - name: time_homework
-        data_type: double
-        description: ""
+    - name: time_homework
+      data_type: double
+      description: ""
 
-      - name: time_lectures
-        data_type: double
-        description: ""
+    - name: time_lectures
+      data_type: double
+      description: ""
 
-      - name: module
-        data_type: string
-        description: ""
+    - name: module
+      data_type: string
+      description: ""
 
-      - name: time_homework_homework-01b
-        data_type: double
-        description: ""
+    - name: "time_homework_homework-01b"
+      data_type: double
+      description: ""
 
-      - name: time_lectures_homework-01b
-        data_type: double
-        description: ""
+    - name: "time_lectures_homework-01b"
+      data_type: double
+      description: ""
 
-      - name: module_homework-01b
-        data_type: string
-        description: ""
+    - name: "module_homework-01b"
+      data_type: string
+      description: ""
 
-      - name: time_homework_homework-02
-        data_type: double
-        description: ""
+    - name: "time_homework_homework-02"
+      data_type: double
+      description: ""
 
-      - name: time_lectures_homework-02
-        data_type: double
-        description: ""
+    - name: "time_lectures_homework-02"
+      data_type: double
+      description: ""
 
-      - name: module_homework-02
-        data_type: string
-        description: ""
+    - name: "module_homework-02"
+      data_type: string
+      description: ""
 
-      - name: time_homework_homework-03
-        data_type: double
-        description: ""
+    - name: "time_homework_homework-03"
+      data_type: double
+      description: ""
 
-      - name: time_lectures_homework-03
-        data_type: double
-        description: ""
+    - name: "time_lectures_homework-03"
+      data_type: double
+      description: ""
 
-      - name: module_homework-03
-        data_type: string
-        description: ""
+    - name: "module_homework-03"
+      data_type: string
+      description: ""
 
-      - name: time_homework_homework-04
-        data_type: double
-        description: ""
+    - name: "time_homework_homework-04"
+      data_type: double
+      description: ""
 
-      - name: time_lectures_homework-04
-        data_type: double
-        description: ""
+    - name: "time_lectures_homework-04"
+      data_type: double
+      description: ""
 
-      - name: module_homework-04
-        data_type: string
-        description: ""
+    - name: "module_homework-04"
+      data_type: string
+      description: ""
 
-      - name: time_homework_homework-05
-        data_type: double
-        description: ""
+    - name: "time_homework_homework-05"
+      data_type: double
+      description: ""
 
-      - name: time_lectures_homework-05
-        data_type: double
-        description: ""
+    - name: "time_lectures_homework-05"
+      data_type: double
+      description: ""
 
-      - name: module_homework-05
-        data_type: string
-        description: ""
+    - name: "module_homework-05"
+      data_type: string
+      description: ""
 
-      - name: time_homework_homework-06
-        data_type: double
-        description: ""
+    - name: "time_homework_homework-06"
+      data_type: double
+      description: ""
 
-      - name: time_homework_homework-piperider
-        data_type: double
-        description: ""
+    - name: "time_homework_homework-piperider"
+      data_type: double
+      description: ""
 
-      - name: module_homework-piperider
-        data_type: string
-        description: ""
+    - name: "module_homework-piperider"
+      data_type: string
+      description: ""
 
-      - name: time_evaluate
-        data_type: double
-        description: ""
+    - name: "time_evaluate"
+      data_type: double
+      description: ""
 
-      - name: time_project
-        data_type: string
-        description: ""
+    - name: "time_project"
+      data_type: string
+      description: ""
 
-      - name: module_project-01-submissions
-        data_type: double
-        description: ""
+    - name: "module_project-01-submissions"
+      data_type: double
+      description: ""
 
-      - name: time_evaluate_project-02-eval
-        data_type: string
-        description: ""
+    - name: "time_evaluate_project-02-eval"
+      data_type: string
+      description: ""
 
-      - name: module_project-02-eval
-        data_type: double
-        description: ""
+    - name: "module_project-02-eval"
+      data_type: double
+      description: ""
 
-      - name: time_project_project-02-submissions
-        data_type: string
-        description: ""
+    - name: "time_project_project-02-submissions"
+      data_type: string
+      description: ""
 
-      - name: module_project-02-submissions
-        data_type: string
-        description: ""
- 
+    - name: "module_project-02-submissions"
+      data_type: string
+      description: ""
