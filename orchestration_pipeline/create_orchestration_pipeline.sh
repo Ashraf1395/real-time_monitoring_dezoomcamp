@@ -20,7 +20,7 @@
 
 
 
-# Define file paths
+# Define file paths                 
 MAGE_COMPOSE_FILE="./docker/mage/docker-compose.yml"
 POSTGRES_COMPOSE_FILE="./docker/postgres/docker-compose.yml"
 EXPORTER_DIR="./orchestration_pipeline/exporter/"

@@ -10,9 +10,22 @@ credentials_location = './docker/mage/google-cred.json'
 conf = SparkConf() \
     .setMaster('local[*]') \
     .setAppName('test') \
-    .set("spark.jars", "./data/gcs-connector-hadoop3-2.2.5.jar") \
+    .set("spark.jars", "./data/gcs-connector-hadoop3-2.2.5.jar , ./data/spark-bigquery-latest_2.12.jar , ./data/gcs-connector-hadoop3-2.2.0-shaded.jar") \
     .set("spark.hadoop.google.cloud.auth.service.account.enable", "true") \
-    .set("spark.hadoop.google.cloud.auth.service.account.json.keyfile", credentials_location)
+    .set("spark.hadoop.google.cloud.auth.service.account.json.keyfile", credentials_location)\
+    .set("spark.hadoop.google.cloud.project.id", "gothic-sylph-387906")\
+    .set("spark.hadoop.fs.gs.project.id", "gothic-sylph-387906")\
+    .set("temporaryGcsBucket", "gs://tmp_storage_bucket/tmp")
+
+        
+       
+#     .setMaster('local[*]') \
+#     .setAppName('test') \
+#     .set("spark.jars", "./data/gcs-connector-hadoop3-2.2.5.jar, gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar") \
+#     .set("spark.hadoop.google.cloud.auth.service.account.enable", "true") \
+#     .set("spark.hadoop.google.cloud.auth.service.account.json.keyfile", credentials_location) \
+#     # .set("spark.hadoop.google.cloud.project.id", "gothic-sylph-387906") \
+
 
 sc = SparkContext(conf=conf)
 
@@ -22,6 +35,7 @@ hadoop_conf.set("fs.AbstractFileSystem.gs.impl",  "com.google.cloud.hadoop.fs.gc
 hadoop_conf.set("fs.gs.impl", "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem")
 hadoop_conf.set("fs.gs.auth.service.account.json.keyfile", credentials_location)
 hadoop_conf.set("fs.gs.auth.service.account.enable", "true")
+hadoop_conf.set("fs.AbstractFileSystem.gs.impl", "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFS")
 
 spark = SparkSession.builder \
     .config(conf=sc.getConf()) \
@@ -163,16 +177,49 @@ df_module.show()
 fact_scores.show()
 fact_time.show()
 
+# Define the output file path
+output_path = gcs_bucket_path + "transformed_data/"
+
+# Write df_module to GCS as an uncompressed CSV file
+df_module.write.mode("overwrite").option("header", "true").option("compression", "none").csv(output_path + "df_module.csv")
+
+# Write df_user to GCS as an uncompressed CSV file
+df_user.write.mode("overwrite").option("header", "true").option("compression", "none").csv(output_path + "df_user.csv")
+
+# Write fact_time to GCS as an uncompressed CSV file
+fact_time.write.mode("overwrite").option("header", "true").option("compression", "none").csv(output_path + "fact_time.csv")
+
+# Write fact_scores to GCS as an uncompressed CSV file
+fact_scores.write.mode("overwrite").option("header", "true").option("compression", "none").csv(output_path + "fact_scores.csv")
 
 
-# Write df_module to GCS as Parquet
-df_module.write.parquet(gcs_bucket_path + "transformed_data/df_module.parquet", mode="overwrite")
+# # Define the BigQuery table names where you want to write the data
+# bq_dataset_name = "gold"
+# bq_table_name_module = "df_module"
+# bq_table_name_user = "df_user"
+# bq_table_name_time = "fact_time"
+# bq_table_name_scores = "fact_scores"
 
-# Write df_user to GCS as Parquet
-df_user.write.parquet(gcs_bucket_path + "transformed_data/df_user.parquet", mode="overwrite")
+# # Write df_module to BigQuery
+# df_module.write.format("bigquery") \
+#     .option("table", f"{bq_dataset_name}.{bq_table_name_module}") \
+#     .option("temporaryGcsBucket", gcs_bucket_path)\
+#     .save(mode="overwrite")
 
-# Write fact_time to GCS as Parquet
-fact_time.write.parquet(gcs_bucket_path + "transformed_data/fact_time.parquet", mode="overwrite")
+# # Write df_user to BigQuery
+# df_user.write.format("bigquery") \
+#     .option("table", f"{bq_dataset_name}.{bq_table_name_user}") \
+#     .option("temporaryGcsBucket", gcs_bucket_path)\
+#     .save(mode="overwrite")
 
-# Write fact_scores to GCS as Parquet
-fact_scores.write.parquet(gcs_bucket_path + "transformed_data/fact_scores.parquet", mode="overwrite")
+# # Write fact_time to BigQuery
+# fact_time.write.format("bigquery") \
+#     .option("table", f"{bq_dataset_name}.{bq_table_name_time}") \
+#     .option("temporaryGcsBucket", gcs_bucket_path)\
+#     .save(mode="overwrite")
+
+# # Write fact_scores to BigQuery
+# fact_scores.write.format("bigquery") \
+#     .option("table", f"{bq_dataset_name}.{bq_table_name_scores}") \
+#     .option("temporaryGcsBucket", gcs_bucket_path)\
+#     .save(mode="overwrite")

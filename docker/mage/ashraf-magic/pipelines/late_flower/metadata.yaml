@@ -127,6 +127,42 @@ blocks:
   upstream_blocks:
   - api_data_load_2
   uuid: export_to_postgres_2
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    data_provider: postgres
+    data_provider_profile: default
+    data_provider_schema: de_data
+    export_write_policy: replace
+  downstream_blocks:
+  - export_to_bigquery
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: gcs_data_load
+  retry_config: null
+  status: failed
+  timeout: null
+  type: data_loader
+  upstream_blocks: []
+  uuid: gcs_data_load
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: export_to_bigquery
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - gcs_data_load
+  uuid: export_to_bigquery
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}
