@@ -21,13 +21,13 @@ if response.status_code == 200:
         # Construct the URL for the raw CSV file
         file_url = f'https://raw.githubusercontent.com/DataTalksClub/zoomcamp-analytics/main/data/de-zoomcamp-2023/{file_name}'
         
-        # dtypes = {
-        # 'email': str,
-        # 'time_homework': float,
-        # 'time_lectures': float,   
-        # }
+        dtypes = {
+        'email': str,
+        'time_homework': int,
+        'time_lectures': int,   
+        }
         # Read the CSV data from the URL
-        file_data = pd.read_csv(file_url)
+        file_data = pd.read_csv(file_url,dtype=dtypes)
         file_data['module']=file_name[:-4]
         # print(file_data.head())
         # Merge the data with the combined DataFrame based on the 'email' column

@@ -13,11 +13,11 @@ seeds:
           Unique identifier conformed by the combination of vendorid and pickyp time
 
       - name: time_homework
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: time_lectures
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: module
@@ -25,11 +25,11 @@ seeds:
         description: ""
 
       - name: "time_homework_homework-01b"
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: "time_lectures_homework-01b"
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: "module_homework-01b"
@@ -37,11 +37,11 @@ seeds:
         description: ""
 
       - name: "time_homework_homework-02"
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: "time_lectures_homework-02"
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: "module_homework-02"
@@ -49,11 +49,11 @@ seeds:
         description: ""
 
       - name: "time_homework_homework-03"
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: "time_lectures_homework-03"
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: "module_homework-03"
@@ -61,11 +61,11 @@ seeds:
         description: ""
 
       - name: "time_homework_homework-04"
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: "time_lectures_homework-04"
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: "module_homework-04"
@@ -73,11 +73,11 @@ seeds:
         description: ""
 
       - name: "time_homework_homework-05"
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: "time_lectures_homework-05"
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: "module_homework-05"
@@ -85,11 +85,11 @@ seeds:
         description: ""
 
       - name: "time_homework_homework-06"
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: "time_homework_homework-piperider"
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: "module_homework-piperider"
@@ -97,7 +97,7 @@ seeds:
         description: ""
 
       - name: "time_evaluate"
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: "time_project"
@@ -105,7 +105,7 @@ seeds:
         description: ""
 
       - name: "module_project-01-submissions"
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: "time_evaluate_project-02-eval"
@@ -113,7 +113,7 @@ seeds:
         description: ""
 
       - name: "module_project-02-eval"
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: "time_project_project-02-submissions"
@@ -136,41 +136,41 @@ seeds:
           Unique identifier conformed by the combination of vendorid and pickyp time
 
       - name: hw-01a
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: hw-01b
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: hw-02
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: "hw-03"
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: "hw-04"
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: "hw-05"
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: "hw-06"
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: "project-01"
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: "project-02"
-        data_type: double
+        data_type: float64
         description: ""
 
       - name: "total"
-        data_type: double
+        data_type: float64
         description: ""
