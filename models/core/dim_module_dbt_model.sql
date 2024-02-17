@@ -4,10 +4,6 @@
     unique_key='email'
 ) }}
 
-select *
-from {{ ref('time_spent') }}
-
-
 select email
 from {{ ref('time_spent') }}
 
