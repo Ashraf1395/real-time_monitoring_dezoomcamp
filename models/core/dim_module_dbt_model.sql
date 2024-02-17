@@ -7,3 +7,5 @@
 select email
 from {{ ref('time_spent') }}
 
+
+
