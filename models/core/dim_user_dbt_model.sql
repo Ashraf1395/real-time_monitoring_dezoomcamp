@@ -1,1 +1,1 @@
-select * from {{ ref('time_spent') }}
+select * from {{ ref('temp') }}
