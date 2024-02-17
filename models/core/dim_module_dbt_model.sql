@@ -1,6 +1,6 @@
 
 
-{% set gcs_data = read_csv_from_gcs('de-zoomcamp-project-data', '/historical_data/time_spent.parquet') %}
+{% set gcs_data = read_from_gcs('de-zoomcamp-project-data', '/historical_data/time_spent.parquet') %}
 
 {{ config(
     materialized='table',
