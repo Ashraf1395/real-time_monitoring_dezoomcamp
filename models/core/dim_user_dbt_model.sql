@@ -1,1 +1,1 @@
-select * from {{ ref('taxi_zone_lookup') }};
+select * from {{ ref('time_spent') }};
