@@ -100,6 +100,10 @@ seeds:
         data_type: float64
         description: ""
 
+      - name: "module_project-01-eval"
+        data_type: string
+        description: ""
+
       - name: "time_project"
         data_type: string
         description: ""
