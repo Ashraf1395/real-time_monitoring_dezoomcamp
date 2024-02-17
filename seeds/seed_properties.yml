@@ -1,7 +1,7 @@
 version: 2
 
 seeds:
-  - name: dim_module_dbt_model
+  - name: time_spent
     description: >
       Taxi trips corresponding to both service zones (Green and yellow).
       The table contains records where both pickup and dropoff locations are valid and known zones. 
@@ -124,7 +124,7 @@ seeds:
         data_type: string
         description: ""
 
-  - name: time_spent
+  - name: scores
     description: >
       Taxi trips corresponding to both service zones (Green and yellow).
       The table contains records where both pickup and dropoff locations are valid and known zones. 
@@ -144,7 +144,7 @@ seeds:
         description: ""
 
       - name: hw-02
-        data_type: string
+        data_type: double
         description: ""
 
       - name: "hw-03"
@@ -156,7 +156,7 @@ seeds:
         description: ""
 
       - name: "hw-05"
-        data_type: string
+        data_type: double
         description: ""
 
       - name: "hw-06"
