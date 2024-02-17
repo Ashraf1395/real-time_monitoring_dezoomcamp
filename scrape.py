@@ -11,7 +11,7 @@ response = requests.get(url)
 if response.status_code == 200:
     # Extract the file names from the response JSON
     file_names = [file['name'] for file in response.json()]
-    print(file_names)
+    
     # Initialize an empty DataFrame to store all the data
     combined_data = pd.DataFrame()
 
@@ -23,13 +23,29 @@ if response.status_code == 200:
         
         dtypes = {
         'email': str,
-        'time_homework': int,
-        'time_lectures': int,   
+        'time_homework': float,
+        'time_lectures': float,   
         }
         # Read the CSV data from the URL
-        file_data = pd.read_csv(file_url,dtype=dtypes)
-        file_data['module']=file_name[:-4]
-        # print(file_data.head())
+                # Read the CSV data from the URL
+        try:
+            # Read the CSV data from the URL with specified data types
+            file_data = pd.read_csv(file_url, dtype=dtypes)
+        except ValueError as e:
+            # Handle the error and continue to the next file
+            print(f"Error reading file {file_name}: {e}")
+            continue
+        
+        # Add a 'module' column to indicate the source file
+        file_data['module'] = file_name[:-4]
+        
+        # Check if 'time_lectures' column exists before converting and filling NaNs
+        if ('time_lectures' or 'time_homework') in file_data.columns:
+            file_data['time_lectures'] = pd.to_numeric(file_data['time_lectures'], errors='coerce').fillna(0)
+        
+            # Convert non-numeric values to NaN and then replace NaN with 0 for 'time_homework'
+            file_data['time_homework'] = pd.to_numeric(file_data['time_homework'], errors='coerce').fillna(0)
+            # print(file_data.head())
         # Merge the data with the combined DataFrame based on the 'email' column
         if not combined_data.empty:
             combined_data = pd.merge(combined_data, file_data, on='email', how='outer',suffixes=('', f'_{file_name[:-4]}'))
