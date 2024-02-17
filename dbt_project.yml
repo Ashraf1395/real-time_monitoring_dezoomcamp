@@ -41,10 +41,6 @@ models:
     core:
       +materialized: table
 
-
-
-version: 2
-
 seeds:
   de_zoomcamp_project:
     time_spent:
