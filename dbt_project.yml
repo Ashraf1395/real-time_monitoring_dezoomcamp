@@ -20,10 +20,11 @@ seed-paths: ["./dbt_transformation_pipeline/seeds"]
 macro-paths: ["./dbt_transformation_pipeline/macros"]
 snapshot-paths: ["./dbt_transformation_pipeline/snapshots"]
 
-target-path: "./dbt_transformation_pipeline/target"  # directory which will store compiled SQL files
+target-path: "target"  # directory which will store compiled SQL files
 clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
+
 
 
 # Configuring models
@@ -37,7 +38,9 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 models:
-  my_new_project:
+  de_zoomcamp_project:
     # Applies to all files under models/example/
-    example:
-      +materialized: table
+    # staging:
+    #     materialized: view
+    core:
+        materialized: table
