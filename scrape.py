@@ -21,16 +21,16 @@ if response.status_code == 200:
         # Construct the URL for the raw CSV file
         file_url = f'https://raw.githubusercontent.com/DataTalksClub/zoomcamp-analytics/main/data/de-zoomcamp-2023/{file_name}'
         
-        dtypes = {
-        'email': str,
-        'time_homework': float,
-        'time_lectures': float,   
-        }
+        # dtypes = {
+        # 'email': str,
+        # 'time_homework': float,
+        # 'time_lectures': float,   
+        # }
         # Read the CSV data from the URL
                 # Read the CSV data from the URL
         try:
             # Read the CSV data from the URL with specified data types
-            file_data = pd.read_csv(file_url, dtype=dtypes)
+            file_data = pd.read_csv(file_url,)
         except ValueError as e:
             # Handle the error and continue to the next file
             print(f"Error reading file {file_name}: {e}")
