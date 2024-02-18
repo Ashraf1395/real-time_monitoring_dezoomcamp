@@ -3,9 +3,7 @@ version: 2
 seeds:
   - name: time_spent
     description: >
-      Taxi trips corresponding to both service zones (Green and yellow).
-      The table contains records where both pickup and dropoff locations are valid and known zones. 
-      Each record corresponds to a trip uniquely identified by tripid.
+      Ashraf
     columns:
       - name: email
         data_type: string

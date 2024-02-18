@@ -1,126 +1,74 @@
 version: 2
 
 models:
-
   - name: dim_module_dbt_model
     description: >
-      Taxi trips corresponding to both service zones (Green and yellow).
-      The table contains records where both pickup and dropoff locations are valid and known zones. 
-      Each record corresponds to a trip uniquely identified by tripid.
+      This table contains dimensions of the modules available in the course curriculum. Each record represents a unique module.
+    columns:
+      - name: module_id
+        data_type: string
+        description: >
+          Unique identifier for the module.
+      - name: module_name
+        data_type: string
+        description: >
+          The name of the module.
+      - name: instructor_id
+        data_type: array
+        description: >
+          An array containing the IDs of the instructors associated with the module.
+
+  - name: dim_user_dbt_model
+    description: >
+      This table contains dimensions of the users enrolled in the course. Each record represents a unique user.
+    columns:
+      - name: user_id
+        data_type: numeric
+        description: >
+          Unique identifier for the user.
+      - name: email
+        data_type: string
+        description: >
+          The email address of the user.
+      - name: user_type
+        data_type: string
+        description: >
+          The type of user, either "student" or "instructor".
+        
+  - name: fact_scores_dbt_model
+    description: >
+      This fact table contains scores achieved by users in different modules. Each record represents a user's score for a specific module.
     columns:
       - name: email
         data_type: string
         description: >
-          Unique identifier conformed by the combination of vendorid and pickyp time
-
+          The email address of the user.
+      - name: module_id
+        data_type: string
+        description: >
+          Unique identifier for the module.
+      - name: scores
+        data_type: float
+        description: >
+          The score achieved by the user for the corresponding module.
+ 
+  - name: fact_time_dbt_model
+    description: >
+      This fact table contains time spent by users on different modules. Each record represents the time spent by a user on a specific module.
+    columns:
+      - name: email
+        data_type: string
+        description: >
+          The email address of the user.
+      - name: module_id
+        data_type: string
+        description: >
+          Unique identifier for the module.
       - name: time_homework
-        data_type: double
-        description: ""
-
+        data_type: float
+        description: >
+          Time spent by the user on homework for the corresponding module.
       - name: time_lectures
-        data_type: double
-        description: ""
-
-      - name: module
-        data_type: string
-        description: ""
-
-      - name: "time_homework_homework-01b"
-        data_type: double
-        description: ""
-
-      - name: "time_lectures_homework-01b"
-        data_type: double
-        description: ""
-
-      - name: "module_homework-01b"
-        data_type: string
-        description: ""
-
-      - name: "time_homework_homework-02"
-        data_type: double
-        description: ""
-
-      - name: "time_lectures_homework-02"
-        data_type: double
-        description: ""
-
-      - name: "module_homework-02"
-        data_type: string
-        description: ""
-
-      - name: "time_homework_homework-03"
-        data_type: double
-        description: ""
-
-      - name: "time_lectures_homework-03"
-        data_type: double
-        description: ""
-
-      - name: "module_homework-03"
-        data_type: string
-        description: ""
-
-      - name: "time_homework_homework-04"
-        data_type: double
-        description: ""
-
-      - name: "time_lectures_homework-04"
-        data_type: double
-        description: ""
-
-      - name: "module_homework-04"
-        data_type: string
-        description: ""
-
-      - name: "time_homework_homework-05"
-        data_type: double
-        description: ""
-
-      - name: "time_lectures_homework-05"
-        data_type: double
-        description: ""
-
-      - name: "module_homework-05"
-        data_type: string
-        description: ""
-
-      - name: "time_homework_homework-06"
-        data_type: double
-        description: ""
-
-      - name: "time_homework_homework-piperider"
-        data_type: double
-        description: ""
-
-      - name: "module_homework-piperider"
-        data_type: string
-        description: ""
-
-      - name: "time_evaluate"
-        data_type: double
-        description: ""
-
-      - name: "time_project"
-        data_type: string
-        description: ""
-
-      - name: "module_project-01-submissions"
-        data_type: double
-        description: ""
-
-      - name: "time_evaluate_project-02-eval"
-        data_type: string
-        description: ""
-
-      - name: "module_project-02-eval"
-        data_type: double
-        description: ""
-
-      - name: "time_project_project-02-submissions"
-        data_type: string
-        description: ""
-
-      - name: "module_project-02-submissions"
-        data_type: string
-        description: ""
+        data_type: float
+        description: >
+          Time spent by the user on lectures for the corresponding module.
