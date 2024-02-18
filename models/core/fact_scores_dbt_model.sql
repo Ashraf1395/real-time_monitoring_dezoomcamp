@@ -4,7 +4,7 @@
 
 
 -- Create fact_scores table
-CREATE TABLE fact_scores AS (
+WITH fact_scores AS (
     -- Select email and use stack function to unpivot the data
     SELECT
         COALESCE(email, 'No defined') AS email,
@@ -32,4 +32,6 @@ CREATE TABLE fact_scores AS (
             COALESCE(project_01 + project_02, 0.0) AS p
         FROM {{ ref('scores') }}
     ) AS tmp
-);
+)
+
+SELECT email,module_id, score from fact_scores

@@ -4,7 +4,7 @@
 
 
 -- Create fact_time table
-CREATE TABLE fact_time AS (
+WITH fact_time AS (
     -- Select email and use stack function to unpivot the data
     SELECT
         COALESCE(email, 'No defined') AS email,
@@ -40,4 +40,6 @@ CREATE TABLE fact_time AS (
             time_project + time_project_project_02_submissions AS p_sub_time
         FROM {{ ref('time_spent') }}
     ) AS tmp
-);
+)
+
+SELECT email,module_id, time_homework, time_lectures from fact_time

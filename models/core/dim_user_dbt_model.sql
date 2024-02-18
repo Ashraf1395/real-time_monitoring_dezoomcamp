@@ -35,4 +35,4 @@ WITH user_data AS (
 )
 -- Select user_id, email, and user_type
 SELECT user_id, email, user_type
-FROM user_data;
+FROM user_data

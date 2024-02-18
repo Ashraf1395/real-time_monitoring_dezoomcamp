@@ -38,4 +38,4 @@ FROM
 LEFT JOIN
     module_instructor_mapping mim
 ON
-    md.module_id = mim.module_id;
+    md.module_id = mim.module_id
