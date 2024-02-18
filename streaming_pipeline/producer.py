@@ -1,7 +1,7 @@
 from confluent_kafka import Producer
-
+from config import BOOTSTRAP_SERVERS
 # Kafka producer configuration
-conf = {'bootstrap.servers': "localhost:9092"}
+conf = {'bootstrap.servers': BOOTSTRAP_SERVERS}
 
 # Create a Kafka producer
 producer = Producer(conf)

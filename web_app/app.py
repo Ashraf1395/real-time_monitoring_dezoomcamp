@@ -18,18 +18,17 @@ def index():
 @app.route('/submit', methods=['POST'])
 def submit():
     module_id = request.form['module_name']
-    username = request.form['username']
-    time_spent_lectures = request.form['time_spent_lectures']
-    time_spent_homework = request.form['time_spent_homework']
-    scores = request.form['scores']
+    email = request.form['email']
+    time_lectures = request.form['time_spent_lectures']
+    time_homework = request.form['time_spent_homework']
+    score = request.form['scores']
     
     # Find the module name corresponding to the module ID
     module_name = module_names[module_ids.index(module_id)]
     
-    
-  # Create a key-value pair message
-    key = f"{module_id}-{username}"
-    value = f"Module Name: {module_name}, Module ID: {module_id}, Username: {username}, Time Spent on Homework: {time_spent_homework}, Time Spent on Lectures: {time_spent_lectures}, Scores: {scores}"
+    # Create a key-value pair message
+    key = f"{module_id}-{email}"
+    value = f"Module_name: {module_name}, Module_id: {module_id}, Email: {email}, Time Spent on Homework: {time_homework}, Time Spent on Lectures: {time_lectures}, Score: {score}"
    
     # Produce the message to a Kafka topic
     produce_message('ashraf-de-form-submissions', key, value)
