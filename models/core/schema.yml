@@ -47,7 +47,7 @@ models:
         data_type: string
         description: >
           Unique identifier for the module.
-      - name: scores
+      - name: score
         data_type: float
         description: >
           The score achieved by the user for the corresponding module.
