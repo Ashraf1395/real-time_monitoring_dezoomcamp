@@ -1,3 +1,4 @@
 lxml
 pyspark
-delta-spark
+flask
+confluent_kafka

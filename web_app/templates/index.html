@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiuser Flask App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Submit your information</h1>
+        <form action="/submit" method="post">
+            <div class="form-group">
+                <label for="module_name">Module Name:</label>
+                <select class="form-control" id="module_name" name="module_name">
+                    {% for i in range(module_names|length) %}
+                        <option value="{{ module_ids[i] }}">{{ module_names[i] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" class="form-control" id="username" name="username">
+            </div>
+            <div class="form-group">
+                <label for="time_spent_homework">Time Spent on Homework:</label>
+                <input type="text" class="form-control" id="time_spent_lectures" name="time_spent_lectures">
+            </div>
+            <div class="form-group">
+                <label for="time_spent_lectures">Time Spent on Lectures:</label>
+                <input type="text" class="form-control" id="time_spent_homework" name="time_spent_homework">
+            </div>
+            <div class="form-group">
+                <label for="scores">Scores:</label>
+                <input type="text" class="form-control" id="scores" name="scores">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
