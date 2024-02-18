@@ -4,42 +4,92 @@
 
 
 -- Create fact_time table
-WITH fact_time AS 
-    -- Select email and use stack function to unpivot the data
+WITH fact_time AS (
     SELECT
         COALESCE(email, 'No defined') AS email,
-        STACK(9,
-            'm1', COALESCE(homework_m1, 0.0), COALESCE(lectures_m1, 0.0),
-            'm2', COALESCE(homework_m2, 0.0), COALESCE(lectures_m2, 0.0),
-            'm3', COALESCE(homework_m3, 0.0), COALESCE(lectures_m3, 0.0),
-            'm4', COALESCE(homework_m4, 0.0), COALESCE(lectures_m4, 0.0),
-            'm5', COALESCE(homework_m5, 0.0), COALESCE(lectures_m5, 0.0),
-            'm6', COALESCE(homework_m6, 0.0), COALESCE(lectures_m6, 0.0),
-            'w3', COALESCE(homework_w3, 0.0), NULL,
-            'p_eval', COALESCE(p_eval_time, 0.0), NULL,
-            'p_sub', COALESCE(p_sub_time, 0.0), NULL
-        ) AS (module_id, time_homework, time_lectures)
+        module_id,
+        COALESCE(time_homework, 0.0) AS time_homework,
+        COALESCE(time_lectures, 0.0) AS time_lectures
     FROM (
-        -- Calculate the columns and cast them to appropriate data types
         SELECT
             email,
-            COALESCE(time_homework + time_homework_homework_01b, 0.0) AS homework_m1,
-            COALESCE(time_lectures + time_lectures_homework_01b, 0.0) AS lectures_m1,
-            time_homework_homework_02 AS homework_m2,
-            time_lectures_homework_02 AS lectures_m2,
-            time_homework_homework_03 AS homework_m3,
-            time_lectures_homework_03 AS lectures_m3,
-            time_homework_homework_04 AS homework_m4,
-            time_lectures_homework_04 AS lectures_m4,
-            time_homework_homework_05 AS homework_m5,
-            time_lectures_homework_05 AS lectures_m5,
-            time_homework_homework_06 AS homework_m6,
-            time_lectures_homework_06 AS lectures_m6,
-            time_homework_homework_piperider AS homework_w3,
-            time_evaluate + time_evaluate_project_02_eval AS p_eval_time,
-            time_project + time_project_project_02_submissions AS p_sub_time
+            'm1' AS module_id,
+            COALESCE(`time_homework` + `time_homework_homework-01b`, 0.0) AS time_homework,
+            COALESCE(`time_lectures` + `time_lectures_homework-01b`, 0.0) AS time_lectures
+        FROM {{ ref('time_spent') }}
+
+        UNION ALL
+
+        SELECT
+            email,
+            'm2',
+            COALESCE(`time_homework_homework-02`, 0.0),
+            COALESCE(`time_lectures_homework-02`, 0.0)
+        FROM {{ ref('time_spent') }}
+
+        UNION ALL
+
+        SELECT
+            email,
+            'm3',
+            COALESCE(`time_homework_homework-03`, 0.0),
+            COALESCE(`time_lectures_homework-03`, 0.0)
+        FROM {{ ref('time_spent') }}
+
+        UNION ALL
+
+        SELECT
+            email,
+            'm4',
+            COALESCE(`time_homework_homework-04`, 0.0),
+            COALESCE(`time_lectures_homework-04`, 0.0)
+        FROM {{ ref('time_spent') }}
+
+        UNION ALL
+
+        SELECT
+            email,
+            'm5',
+            COALESCE(`time_homework_homework-05`, 0.0),
+            COALESCE(`time_lectures_homework-05`, 0.0)
+        FROM {{ ref('time_spent') }}
+
+        UNION ALL
+
+        SELECT
+            email,
+            'm6',
+            COALESCE(`time_homework_homework-06`, 0.0),
+            COALESCE(`time_lectures_homework-06`, 0.0)
+        FROM {{ ref('time_spent') }}
+
+        UNION ALL
+
+        SELECT
+            email,
+            'w3',
+            COALESCE(`time_homework_homework-piperider`, 0.0),
+            NULL
+        FROM {{ ref('time_spent') }}
+
+        UNION ALL
+
+        SELECT
+            email,
+            'p_eval',
+            COALESCE(`time_evaluate` + `time_evaluate_project-02-eval`, 0.0),
+            NULL
+        FROM {{ ref('time_spent') }}
+
+        UNION ALL
+
+        SELECT
+            email,
+            'p_sub',
+            COALESCE(`time_project` + `time_project_project-02-submissions`, 0.0),
+            NULL
         FROM {{ ref('time_spent') }}
     ) AS tmp
+)
 
-
-SELECT email,module_id, time_homework, time_lectures from fact_time
+SELECT email, module_id, time_homework, time_lectures FROM fact_time

@@ -22,4 +22,4 @@ WITH fact_scores AS (
     SELECT email, 'p_sub', COALESCE(`project-01` + `project-02`, 0.0) FROM {{ ref('scores') }}
 )
 
-SELECT * FROM fact_scores;
+SELECT * FROM fact_scores
