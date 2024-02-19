@@ -15,9 +15,7 @@ conf = SparkConf() \
     .set("spark.jars", "./data/gcs-connector-hadoop3-2.2.5.jar , ./data/spark-bigquery-latest_2.12.jar , ./data/gcs-connector-hadoop3-2.2.0-shaded.jar") \
     .set("spark.hadoop.google.cloud.auth.service.account.enable", "true") \
     .set("spark.hadoop.google.cloud.auth.service.account.json.keyfile", credentials_location)\
-    .set("spark.hadoop.google.cloud.project.id", "gothic-sylph-387906")\
-    .set("spark.hadoop.fs.gs.project.id", "gothic-sylph-387906")\
-    .set("temporaryGcsBucket", "gs://tmp_storage_bucket/tmp")
+
 
 sc = SparkContext(conf=conf)
 
@@ -62,74 +60,44 @@ df_with_json = df_with_json.select(
     'timestamp','offset'
 )
 
-# def sink_console(df, output_mode: str = 'complete', processing_time: str = '5 seconds'):
-#     write_query = df.writeStream \
-#         .outputMode(output_mode) \
-#         .trigger(processingTime=processing_time) \
-#         .format("console") \
-#         .option("truncate", False) \
-#         .start()
-#     return write_query # pyspark.sql.streaming.StreamingQuery
-
-# write_query = sink_console(df_with_json, output_mode='append')
-
-def sink_memory(df, query_name, query_template):
-    write_query = df \
-        .writeStream \
-        .queryName(query_name) \
-        .format('memory') \
-        .start()
-    query_str = query_template.format(table_name=query_name)
-    query_results = spark.sql(query_str)
-    return write_query, query_results
-
-def write_to_gcs(batch_df, batch_id):
-    # Define the output path for this batch
-    output_path = gcs_bucket_path + f"streaming_data/"
-    # Write the batch to GCS
-    batch_df \
-        .write \
-        .format("parquet") \
-        .mode("append") \
-        .option("header", "true") \
-        .save(output_path)
-
-query_name = 'fact_scores'
-query_template = 'select email,module_id,score from {table_name}'
-write_fact_query, fact_scores = sink_memory(df=df_with_json, query_name=query_name, query_template=query_template)
-
-query_name = 'fact_time'
-query_template = 'select email,module_id,time_homework,time_lectures from {table_name}'
-write_time_query, fact_time = sink_memory(df=df_with_json, query_name=query_name, query_template=query_template)
-
-
-
-# Start streaming queries
-write_fact_query = fact_scores.writeStream \
-    .foreachBatch(write_to_gcs) \
-    .start()
-
-write_time_query = fact_time.writeStream \
-    .foreachBatch(write_to_gcs) \
-    .start()
-
-
-def stop_query(query_name=None):
-    if query_name is None:
-        # Stop all queries
-        write_fact_query.stop()
-        write_time_query.stop()
-        # Add more queries here if needed
-    elif query_name == "write_fact_query":
-        write_fact_query.stop()
-    elif query_name == "write_time_query":
-        write_time_query.stop()
-    # Add more conditions for other query names if needed
-    else:
-        print("Invalid query name")
+# def stop_query(query_name=None):
+#     if query_name is None:
+#         # Stop all queries
+#         write_fact_query.stop()
+#         write_time_query.stop()
+#         # Add more queries here if needed
+#     elif query_name == "write_fact_query":
+#         write_fact_query.stop()
+#     elif query_name == "write_time_query":
+#         write_time_query.stop()
+#     # Add more conditions for other query names if needed
+#     else:
+#         print("Invalid query name")
 
 # # Example usage to stop a specific query
 # stop_query("write_fact_query")  # Stop only the "write_fact_query" query
 
 # # Example usage to stop all queries
 # stop_query()  # Stop all queries
+
+
+# Define a function to write a DataFrame to GCS
+def write_to_gcs(df, batch_id, path):
+    # Define the output path for this batch
+    output_path = gcs_bucket_path + f"streaming_data/{path}/batch_{batch_id}/"
+    # Write the batch to GCS
+    df.write.format("parquet").mode("overwrite").save(output_path)
+
+# Define your streaming query
+fact_scores_query = df_with_json.select('email','module_id','score','timestamp','offset').writeStream \
+    .foreachBatch(lambda df, batch_id: write_to_gcs(df, batch_id, 'fact_score')) \
+    .start()
+
+# Define another streaming query for the second DataFrame
+fact_time_query = df_with_json.select('email','module_id','time_homewokr','time_lectures','timestamp','offset').writeStream \
+    .foreachBatch(lambda df, batch_id: write_to_gcs(df, batch_id, 'fact_score')) \
+    .start()
+
+# Wait for the streaming queries to finish
+fact_scores_query.awaitTermination()
+fact_time_query.awaitTermination()
