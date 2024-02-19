@@ -27,7 +27,7 @@ services:
     volumes:
       - shared-workspace:/opt/workspace
     environment:
-      SPARK_LOCAL_IP: ${SPARK_LOCAL_IP}
+      SPARK_LOCAL_IP: spark-master
     env_file:
       - .env
     ports:
@@ -48,20 +48,5 @@ services:
       - .env
     ports:
       - 8083:8081
-    
-  
-  spark-worker-2:
-    image: spark-worker
-    container_name: ${PROJECT_NAME}-spark-worker-2
-    depends_on:
-      - spark-master
-    volumes:
-      - shared-workspace:/opt/workspace
-    environment:
-      - SPARK_WORKER_CORES=1
-      - SPARK_WORKER_MEMORY=4g
-    env_file:
-      - .env
-    ports:
-      - 8084:8081
+
     

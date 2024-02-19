@@ -35,9 +35,10 @@ if response.status_code == 200:
             # Handle the error and continue to the next file
             print(f"Error reading file {file_name}: {e}")
             continue
-        
+    
         # Add a 'module' column to indicate the source file
         file_data['module'] = file_name[:-4]
+        # Group by email and calculate the average of 'time_evaluate' column for each group        
         
         # Check if 'time_lectures' column exists before converting and filling NaNs
         if ('time_lectures' or 'time_homework') in file_data.columns:
@@ -57,8 +58,14 @@ if response.status_code == 200:
     print(combined_data.head())
 else:
     print("Failed to fetch file names. Status code:", response.status_code)
-    
- # Write the final combined data to a CSV file
+
+combined_data['time_evaluate'] = combined_data.groupby('email')['time_evaluate'].transform('mean')
+combined_data['time_evaluate_project-02-eval'] = combined_data.groupby('email')['time_evaluate_project-02-eval'].transform('mean')
+
+
+combined_data =combined_data.drop_duplicates(subset=['email'])
+combined_data['user_id'] = combined_data.reset_index(drop=True).index + 1
+     # Write the final combined data to a CSV file
 combined_data.to_csv('data/time_spent.csv', index=False)
 
 
@@ -72,7 +79,9 @@ tables = pd.read_html(url,header=0,skiprows=1)
 leaderboard_df = tables[-1]
 
 leaderboard_df.drop(columns=['1'],inplace=True)
+
 # Preview the data
 print(leaderboard_df.head())
+leaderboard_df['user_id'] = leaderboard_df.reset_index(drop=True).index + 1
 
 leaderboard_df.to_csv('data/scores.csv',index=False)
