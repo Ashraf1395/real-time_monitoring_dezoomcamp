@@ -126,6 +126,10 @@ seeds:
         data_type: string
         description: ""
 
+      - name: "user_id"
+        data_type: int64
+        description: ""
+
   - name: scores
     description: >
       Taxi trips corresponding to both service zones (Green and yellow).
@@ -179,4 +183,8 @@ seeds:
 
       - name: "total"
         data_type: float64
+        description: ""
+
+      - name: "user_id"
+        data_type: int64
         description: ""

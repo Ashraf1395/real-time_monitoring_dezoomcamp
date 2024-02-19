@@ -75,6 +75,8 @@ seeds:
         module_project-02-eval: string
         time_project_project-02-submissions: float
         module_project-02-submissions: string
+        user_id: numeric
+        
     scores:
       +column_types:
         hw-01a: float
@@ -88,5 +90,6 @@ seeds:
         project-01: float
         project-02: float
         total: float
+        user_id: numeric
 
 
