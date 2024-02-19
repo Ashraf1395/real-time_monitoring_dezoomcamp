@@ -39,6 +39,7 @@ if response.status_code == 200:
         # Add a 'module' column to indicate the source file
         file_data['module'] = file_name[:-4]
         
+        
         # Check if 'time_lectures' column exists before converting and filling NaNs
         if ('time_lectures' or 'time_homework') in file_data.columns:
             file_data['time_lectures'] = pd.to_numeric(file_data['time_lectures'], errors='coerce').fillna(0)
@@ -57,8 +58,8 @@ if response.status_code == 200:
     print(combined_data.head())
 else:
     print("Failed to fetch file names. Status code:", response.status_code)
-    
- # Write the final combined data to a CSV file
+combined_data['user_id'] = combined_data.reset_index(drop=True).index + 1
+     # Write the final combined data to a CSV file
 combined_data.to_csv('data/time_spent.csv', index=False)
 
 
@@ -72,7 +73,9 @@ tables = pd.read_html(url,header=0,skiprows=1)
 leaderboard_df = tables[-1]
 
 leaderboard_df.drop(columns=['1'],inplace=True)
+
 # Preview the data
 print(leaderboard_df.head())
+leaderboard_df['user_id'] = leaderboard_df.reset_index(drop=True).index + 1
 
 leaderboard_df.to_csv('data/scores.csv',index=False)

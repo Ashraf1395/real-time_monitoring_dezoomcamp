@@ -15,9 +15,6 @@ conf = SparkConf() \
     .set("spark.jars", "./data/gcs-connector-hadoop3-2.2.5.jar , ./data/spark-bigquery-latest_2.12.jar , ./data/gcs-connector-hadoop3-2.2.0-shaded.jar") \
     .set("spark.hadoop.google.cloud.auth.service.account.enable", "true") \
     .set("spark.hadoop.google.cloud.auth.service.account.json.keyfile", credentials_location)\
-    .set("spark.hadoop.google.cloud.project.id", "gothic-sylph-387906")\
-    .set("spark.hadoop.fs.gs.project.id", "gothic-sylph-387906")\
-    .set("temporaryGcsBucket", "gs://tmp_storage_bucket/tmp")
 
 sc = SparkContext(conf=conf)
 
