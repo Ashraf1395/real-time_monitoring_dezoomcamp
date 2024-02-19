@@ -6,7 +6,7 @@
 -- Create fact_time table
 WITH fact_time AS (
     SELECT
-        COALESCE(user_id, 'No defined') AS user_id,
+        user_id,
         module_id,
         COALESCE(time_homework, 0.0) AS time_homework,
         COALESCE(time_lectures, 0.0) AS time_lectures
