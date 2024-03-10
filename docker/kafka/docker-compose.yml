@@ -1,7 +1,7 @@
 version: '3.6'
 networks:
   default:
-    name: ${PROJECT_NAME}-network
+    name: ashraf-magic-network
     external: true
 services:
   
